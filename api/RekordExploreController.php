@@ -16,15 +16,19 @@ class RekordExploreController{
             $sections =  rekord_get_field('r_explore_screen', 'option');
 
             foreach($sections as $section){
+                $postPerPage = $section['r_number_of_post'];
+
 
                 $data[$i]['title'] = $section['r_title'];
                 $data[$i]['type'] = $section['r_post_type'];
-                $data[$i]['number_of_post'] = $section['r_number_of_post'];
-                $data[$i]['style'] = $section['style'];
+                if(!empty($section['style'])){
+                    $data[$i]['style'] =$section['style'];
+                }
+              
 
 
                 $args = array(
-                    'posts_per_page'  => $section['r_number_of_post'],
+                    'posts_per_page'  => $postPerPage,
                     //'category_name'   => $btmetanm,
                     //'offset'          => $postOffset,
                     'post_type'       =>  $section['r_post_type']
@@ -42,7 +46,8 @@ class RekordExploreController{
                 }
 
                 if($section['r_post_type'] == 'artist'){
-                    $posts = rekord_api_get_posts('artist');
+           
+                    $posts = rekord_api_get_posts('artist', $postPerPage);
                     $data[$i]['artists'] =$artists->data($posts);
                 }
 
