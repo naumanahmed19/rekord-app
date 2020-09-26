@@ -33,21 +33,18 @@ class RekordExploreController{
                     //'offset'          => $postOffset,
                     'post_type'       =>  $section['r_post_type']
                 );
-
+                $posts = get_posts($args);
                 
                 if($section['r_post_type'] == 'album'){
-                    $posts = get_posts($args);
+                
                     $data[$i]['albums'] =  $albums->data($posts);
                 }
                 
                 if($section['r_post_type'] == 'track'){
-                    $posts = rekord_api_get_posts('track');
                     $data[$i]['tracks'] =$tracks->data($posts);
                 }
 
                 if($section['r_post_type'] == 'artist'){
-           
-                    $posts = rekord_api_get_posts('artist', $postPerPage);
                     $data[$i]['artists'] =$artists->data($posts);
                 }
 

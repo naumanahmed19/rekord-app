@@ -13,20 +13,19 @@ function rekord_get_post_media($id){
     return $media;
 }
 
-function rekord_api_get_posts($post_type, $postsPerPage = -1){
+function rekord_api_get_posts($post_type, $postsPerPage = 10){
 
-	$paged = 1;
+	$page = 1;
 	$postOffset = 0;
 	$postsPerPage = !empty($_GET['numberposts'] )? $_GET['numberposts'] :$postsPerPage;
 	
 	
-	if(!empty($_GET['paged'])){
-		$paged = $_GET['paged'];
-		$postOffset = $paged * $postsPerPage;
+	if(!empty($_GET['page'])){
+		$page = $_GET['page'];
+		$postOffset = $page * $postsPerPage;
 	}
 
-
-	$postOffset = $paged * $postsPerPage;
+	$postOffset = $page * $postsPerPage;
 	$args = array(
 		'posts_per_page'  => $postsPerPage,
 		//'category_name'   => $btmetanm,
