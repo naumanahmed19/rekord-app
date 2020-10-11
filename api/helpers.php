@@ -15,6 +15,12 @@ function rekord_get_post_media($id){
 
 function rekord_api_get_posts($post_type, $postsPerPage = 10){
 
+
+
+	if(!empty($number = rekord_get_field("r_{$post_type}_post_per_page", 'option'))){
+		$postsPerPage =$number;
+	}
+
 	$page = 1;
 	$postOffset = 0;
 	$postsPerPage = !empty($_GET['numberposts'] )? $_GET['numberposts'] :$postsPerPage;
@@ -25,19 +31,24 @@ function rekord_api_get_posts($post_type, $postsPerPage = 10){
 		$postOffset = $page * $postsPerPage;
 	}
 
-	$postOffset = $page * $postsPerPage;
 	$args = array(
 		'posts_per_page'  => $postsPerPage,
 		//'category_name'   => $btmetanm,
-		'offset'          => $postOffset,
-		'post_type'       => $post_type
+		//'offset'          => $postOffset,
+		'post_type'       => $post_type,
+		'paged' => $page,
 	);
 
 
 	if(!empty($_GET['q'])){
 		$args['s'] =  esc_attr( $_GET['q']);
-		$args['posts_per_page'] = -1;
+		//$args['posts_per_page'] = -1;
 	}
 
 	return  get_posts($args);
+}
+
+function isFavorited($id){
+	global $current_user;
+	 return in_array($id, get_user_favorites( $current_user->ID)) ;
 }

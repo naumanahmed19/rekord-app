@@ -30,6 +30,7 @@ class RekordTracksController{
     
                 $data[$i]['time'] = rekord_get_field('track_time', $post->ID);
                 $data[$i]['artist'] =  $this->artists($post->ID);
+                $data[$i]['favorited'] = isFavorited($post->ID);
                 
         
                 $i++;

@@ -15,7 +15,7 @@ include ( __DIR__ . '/RekordTracksController.php');
 include ( __DIR__ . '/RekordAlbumsController.php');
 
 include ( __DIR__ . '/RekordExploreController.php');
-
+include ( __DIR__ . '/RekordUserController.php');
 
 function rekord_api_get_explore($post_type){
     $response = new RekordExploreController();
@@ -87,7 +87,23 @@ function wl_post( $slug ) {
 	return $data;
 }
 
+function addToFav(){
 
+	
+
+	$post_id = 1750;
+	$favorite = new \Favorites\Entities\Favorite\Favorite();
+
+	
+	global $current_user;
+
+		$_POST['logged_in'] = $current_user->ID;
+
+		add_action('favorites_before_favorite', $post_id, 'active', get_current_blog_id() ,$current_user);
+		
+	// Trigger an update with the desired `post_id`
+	$favorite->update( $post_id, 'active', get_current_blog_id() );
+}
 
 add_action('rest_api_init', function() {
 
@@ -101,12 +117,42 @@ add_action('rest_api_init', function() {
 	}
 
 
+	register_rest_route( 'wl/v1', 'fav', array(
+		'methods' => 'GET',
+		'callback' => 'addToFav',
+	) );
+
+
 	register_rest_route( 'wl/v1', 'posts/(?P<slug>[a-zA-Z0-9-]+)', array(
 		'methods' => 'GET',
 		'callback' => 'wl_post',
 	) );
+
+
+
+
+	register_rest_route( 'wl/v1', 'user/update', array(
+		'methods' => 'POST',
+		'callback' => function (){
+			$userController = new RekordUserController();
+			return $userController->update($_REQUEST);
+		},
+	) );
+
 });
 
 
+ // $response = new WP_REST_Response($data, 200);
 
+
+add_action( 'simple_jwt_login_jwt_payload_auth', function($payload, $request){
+
+	$userController = new RekordUserController();
+	global $current_user;
+	
+	$payload['user'] =	$userController->get($payload['id']);
+	
+	return $payload;
+
+}, 10, 2);
 

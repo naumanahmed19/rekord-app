@@ -21,6 +21,7 @@ class RekordArtistsController{
 
                 $data[$i]['tracks'] = $this->tracks( $post->ID);
                 $data[$i]['albums'] = $this->albums( $post->ID);
+                $data[$i]['favorited'] = isFavorited($post->ID);
                 $i++;
             }
         }

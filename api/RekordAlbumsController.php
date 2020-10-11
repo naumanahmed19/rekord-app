@@ -15,13 +15,16 @@ class RekordAlbumsController{
                 $data[$i]['slug'] = $post->post_name;
                 $data[$i]['media'] = rekord_get_post_media($post->ID);
                 $data[$i]['tracks'] = $this->tracks( $post->ID);
-                
+                $data[$i]['favoritescount'] = (int) strip_tags(get_favorites_count($post->ID));
+                $data[$i]['favorited'] = isFavorited($post->ID);
                 $i++;
             }
         }
         return $data;
     }
 
+
+ 
     function tracks($id){
         $tracks = new RekordTracksController();
         $args = rekord_relation_args('track' , 'track_albums',-1, $id);

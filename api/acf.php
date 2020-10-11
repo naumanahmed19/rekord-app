@@ -16,10 +16,87 @@ if( function_exists('acf_add_options_page') ) {
 
 	acf_add_local_field_group(array(
 		'key' => 'group_5f64bff58c3d2',
-		'title' => 'Rekord Mobile',
+		'title' => 'Rekord App',
 		'fields' => array(
+
+			// array(
+			// 	'key' => 'field_5f64ef6a615ex1c',
+			// 	'label' => _('Albums Screen','rekord'),
+			// 	'name' => '',
+			// 	'type' => 'tab',
+			// 	'instructions' => '',
+			// 	'required' => 0,
+			// 	'conditional_logic' => 0,
+			// 	'wrapper' => array(
+			// 		'width' => '',
+			// 		'class' => '',
+			// 		'id' => '',
+			// 	),
+			// 	'placement' => 'left',
+			// 	'endpoint' => 0,
+			// ),
 			array(
-				'key' => 'field_5f64ef6a615ed',
+				'key' => 'field_5f64c657d50c82',
+				'label' => 'Number of Post',
+				'name' => 'r_album_post_per_page',
+				'type' => 'number',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => 5,
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'min' => '',
+				'max' => '',
+				'step' => '',
+			),
+			// array(
+			// 	'key' => 'field_5f64ef6a615ex2d',
+			// 	'label' => _('Artists Screen','rekord'),
+			// 	'name' => '',
+			// 	'type' => 'tab',
+			// 	'instructions' => '',
+			// 	'required' => 0,
+			// 	'conditional_logic' => 0,
+			// 	'wrapper' => array(
+			// 		'width' => '',
+			// 		'class' => '',
+			// 		'id' => '',
+			// 	),
+			// 	'placement' => 'left',
+			// 	'endpoint' => 0,
+			// ),
+			array(
+				'key' => 'field_5f64c657d50c81',
+				'label' => 'Number of Post',
+				'name' => 'r_artist_post_per_page',
+				'type' => 'number',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => 5,
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'min' => '',
+				'max' => '',
+				'step' => '',
+			),
+
+			////////////
+			array(
+				'key' => 'field_5f64ef6a615edx',
 				'label' => 'Explore Screen',
 				'name' => '',
 				'type' => 'tab',
@@ -170,6 +247,7 @@ if( function_exists('acf_add_options_page') ) {
 					),
 				),
 			),
+		
 		),
 		'location' => array(
 			array(
