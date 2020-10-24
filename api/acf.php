@@ -149,8 +149,13 @@ if( function_exists('acf_add_options_page') ) {
 						'append' => '',
 						'maxlength' => '',
 					),
+			
+
+					//Start post & cat
+
+					
 					array(
-						'key' => 'field_5f64c5cad50c7',
+						'key' => 'field_5f93049f2afc4',
 						'label' => 'Select Post Type',
 						'name' => 'r_post_type',
 						'type' => 'select',
@@ -165,9 +170,7 @@ if( function_exists('acf_add_options_page') ) {
 						'choices' => array(
 							'album' => 'Album',
 							'track' => 'Track',
-							// 'event' => 'Event',
 							'artist' => 'Artist',
-							
 						),
 						'default_value' => array(
 						),
@@ -178,6 +181,120 @@ if( function_exists('acf_add_options_page') ) {
 						'ajax' => 0,
 						'placeholder' => '',
 					),
+					array(
+						'key' => 'field_5f9303d98da73',
+						'label' => 'Select Album Category',
+						'name' => 'r_category',
+						'type' => 'taxonomy',
+						'instructions' => '',
+						'required' => 0,
+						'conditional_logic' => array(
+							array(
+								array(
+									'field' => 'field_5f93049f2afc4',
+									'operator' => '==',
+									'value' => 'album',
+								),
+							),
+						),
+						'wrapper' => array(
+							'width' => '',
+							'class' => '',
+							'id' => '',
+						),
+						'taxonomy' => 'album-categories',
+						'field_type' => 'select',
+						'allow_null' => 0,
+						'add_term' => 0,
+						'save_terms' => 0,
+						'load_terms' => 0,
+						'return_format' => 'object',
+						'multiple' => 0,
+					),
+					array(
+						'key' => 'field_5f9305792afc6',
+						'label' => 'Select Artist Category',
+						'name' => 'r_category',
+						'type' => 'taxonomy',
+						'instructions' => '',
+						'required' => 0,
+						'conditional_logic' => array(
+							array(
+								array(
+									'field' => 'field_5f93049f2afc4',
+									'operator' => '==',
+									'value' => 'artist',
+								),
+							),
+						),
+						'wrapper' => array(
+							'width' => '',
+							'class' => '',
+							'id' => '',
+						),
+						'taxonomy' => 'artist-categories',
+						'field_type' => 'select',
+						'allow_null' => 0,
+						'add_term' => 0,
+						'save_terms' => 0,
+						'load_terms' => 0,
+						'return_format' => 'object',
+						'multiple' => 0,
+					),
+					array(
+						'key' => 'field_5f93059d2afc7',
+						'label' => 'Select Track Category',
+						'name' => 'r_category',
+						'type' => 'taxonomy',
+						'instructions' => '',
+						'required' => 0,
+						'conditional_logic' => array(
+							array(
+								array(
+									'field' => 'field_5f93049f2afc4',
+									'operator' => '==',
+									'value' => 'track',
+								),
+							),
+						),
+						'wrapper' => array(
+							'width' => '',
+							'class' => '',
+							'id' => '',
+						),
+						'taxonomy' => 'track-categories',
+						'field_type' => 'select',
+						'allow_null' => 0,
+						'add_term' => 0,
+						'save_terms' => 0,
+						'load_terms' => 0,
+						'return_format' => 'object',
+						'multiple' => 0,
+					),
+					array(
+						'key' => 'field_5f9305762afc5',
+						'label' => '',
+						'name' => '',
+						'type' => 'text',
+						'instructions' => '',
+						'required' => 0,
+						'conditional_logic' => 0,
+						'wrapper' => array(
+							'width' => '',
+							'class' => '',
+							'id' => '',
+						),
+						'default_value' => '',
+						'placeholder' => '',
+						'prepend' => '',
+						'append' => '',
+						'maxlength' => '',
+					),
+
+					//
+
+
+
 					array(
 						'key' => 'field_5f64c657d50c8',
 						'label' => 'Number of Post',
@@ -199,28 +316,7 @@ if( function_exists('acf_add_options_page') ) {
 						'max' => '',
 						'step' => '',
 					),
-					array(
-						'key' => 'field_5f64c70198043',
-						'label' => 'Select A category',
-						'name' => 'r_select_a_category',
-						'type' => 'taxonomy',
-						'instructions' => '',
-						'required' => 0,
-						'conditional_logic' => 0,
-						'wrapper' => array(
-							'width' => '',
-							'class' => '',
-							'id' => '',
-						),
-						'taxonomy' => 'category',
-						'field_type' => 'select',
-						'allow_null' => 0,
-						'add_term' => 0,
-						'save_terms' => 0,
-						'load_terms' => 0,
-						'return_format' => 'id',
-						'multiple' => 0,
-					),
+				
 					array(
 						'key' => 'field_5f64f29f18f7f',
 						'label' => 'Style',

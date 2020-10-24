@@ -129,14 +129,24 @@ add_action('rest_api_init', function() {
 	) );
 
 
-
-
+	register_rest_route('/jwt-auth/v1', 'profile', array(
+		'methods' => 'POST',
+		'callback' =>  function (){
+			return 'ggoe';
+		},
+		'permission_callback' => function($request){	  
+		  return is_user_logged_in();
+		}
+	  )); 
+	
 	register_rest_route( 'wl/v1', 'user/update', array(
 		'methods' => 'POST',
-		'callback' => function (){
+		'callback' => function ($request){
 			$userController = new RekordUserController();
+	
 			return $userController->update($_REQUEST);
 		},
+	
 	) );
 
 });

@@ -41,7 +41,9 @@ class RekordArtistsController{
         $tracks = new RekordTracksController();
         $args = rekord_relation_args('album' , 'album_artists',-1, $id);
         $posts = get_posts($args); //builtin method
-        return $tracks->data($posts);
+
+        $albumController = new RekordAlbumsController();
+        return $albumController->data($posts);
     }
 
 
