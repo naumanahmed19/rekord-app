@@ -129,33 +129,31 @@ add_action('rest_api_init', function() {
 	) );
 
 
-	register_rest_route('/jwt-auth/v1', 'profile', array(
-		'methods' => 'POST',
-		'callback' =>  function (){
-			return 'ggoe';
-		},
-		'permission_callback' => function($request){	  
-		  return is_user_logged_in();
-		}
-	  )); 
-	
 	register_rest_route( 'wl/v1', 'user/update', array(
 		'methods' => 'POST',
-		'callback' => function ($request){
+		'callback' => function (){
+			return get_currentuserinfo();
 			$userController = new RekordUserController();
-	
 			return $userController->update($_REQUEST);
 		},
-	
+		// 'permission_callback' => function($request){	  
+		// 	return is_user_logged_in();
+		//   }
+		
 	) );
 
-});
+}, 100, 2);
 
 
  // $response = new WP_REST_Response($data, 200);
+ add_action( 'simple_jwt_login_login_hook', function($user){
+
+	return $user;
+
+}, 10, 2);
 
 
-add_action( 'simple_jwt_login_jwt_payload_auth', function($payload, $request){
+add_action( 'simple_jwt_login_jwt_payload_auth', function($user){
 
 	$userController = new RekordUserController();
 	global $current_user;
