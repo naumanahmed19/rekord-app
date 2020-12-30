@@ -153,7 +153,7 @@ add_action('rest_api_init', function() {
 }, 10, 2);
 
 
-add_action( 'simple_jwt_login_jwt_payload_auth', function($user){
+add_action( 'simple_jwt_login_jwt_payload_auth', function($payload, $request){
 
 	$userController = new RekordUserController();
 	global $current_user;
