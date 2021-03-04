@@ -24,7 +24,7 @@ function rekord_get_the_post_thumbnail_url($id, $size ) {
 	return null;
 }
 
-function rekord_api_get_posts($post_type, $postsPerPage = 10){
+function rekord_api_get($post_type, $postsPerPage = 10){
 
 
 

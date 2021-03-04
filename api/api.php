@@ -13,9 +13,14 @@ include ( __DIR__ . '/helpers.php');
 include ( __DIR__ . '/RekordArtistsController.php');
 include ( __DIR__ . '/RekordTracksController.php');
 include ( __DIR__ . '/RekordAlbumsController.php');
-
+include ( __DIR__ . '/RekordPodcastsController.php');
+include ( __DIR__ . '/RekordVideosController.php');
+include ( __DIR__ . '/RekordEventsController.php');
 include ( __DIR__ . '/RekordExploreController.php');
 include ( __DIR__ . '/RekordUserController.php');
+include ( __DIR__ . '/TestController.php');
+include ( __DIR__ . '/RekordPostsController.php');
+
 
 function rekord_api_get_explore($post_type){
     $response = new RekordExploreController();
@@ -25,9 +30,9 @@ function rekord_api_get_explore($post_type){
 
 function rekord_api_get_albums() {
     
-    $albums = new RekordAlbumsController();
-	$posts = rekord_api_get_posts('album');
-	$data =  $albums->data($posts);
+    $ctrl = new RekordAlbumsController();
+	$posts = rekord_api_get('album');
+	$data =  $ctrl->data($posts);
 	return [
 		'data' => $data,
 		'status' => 200
@@ -35,9 +40,9 @@ function rekord_api_get_albums() {
 }
 
 function rekord_api_get_tracks() {
-    $tracks = new RekordTracksController();
-	$posts = rekord_api_get_posts('track');
-	$data =  $tracks->data($posts);
+    $ctrl = new RekordTracksController();
+	$posts = rekord_api_get('track');
+	$data =  $ctrl->data($posts);
 	return [
 		'data' => $data,
 		'status' => 200
@@ -45,15 +50,55 @@ function rekord_api_get_tracks() {
 }
 
 function rekord_api_get_artists() {
-    $artists = new RekordArtistsController();
-	$posts = rekord_api_get_posts('artist');
-	$data =  $artists->data($posts);
+    $ctrl = new RekordArtistsController();
+	$posts = rekord_api_get('artist');
+	$data =  $ctrl->data($posts);
 	return [
 		'data' => $data,
 		'status' => 200
 	];
 }
 
+
+function rekord_api_get_podcasts() {
+	$ctrl = new RekordPodcastsController();
+	$posts = rekord_api_get('podcast');
+	$data =  $ctrl->data($posts);
+	return [
+		'data' => $data,
+		'status' => 200
+	];
+}
+
+function rekord_api_get_videos() {
+	$ctrl = new RekordVideosController();
+	$posts = rekord_api_get('video');
+	$data =  $ctrl->data($posts);
+	return [
+		'data' => $data,
+		'status' => 200
+	];
+}
+
+function rekord_api_get_events() {
+	$ctrl = new RekordEventsController();
+	$posts = rekord_api_get('event');
+	$data =  $ctrl->data($posts);
+	return [
+		'data' => $data,
+		'status' => 200
+	];
+}
+
+function rekord_api_get_posts() {
+	$ctrl = new RekordPostsController();
+	$posts = rekord_api_get('post');
+	$data =  $ctrl->data($posts);
+	return [
+		'data' => $data,
+		'status' => 200
+	];
+}
 
 
 
@@ -67,25 +112,25 @@ function rekord_api_get_taxonomy(){
 
 
 
-function wl_post( $slug ) {
-	$args = [
-		'name' => $slug['slug'],
-		'post_type' => 'post'
-	];
+// function wl_post( $slug ) {
+// 	$args = [
+// 		'name' => $slug['slug'],
+// 		'post_type' => 'post'
+// 	];
 
-	$post = get_posts($args);
+// 	$post = get_posts($args);
 
 
-	$data['id'] = $post[0]->ID;
-	$data['title'] = $post[0]->post_title;
-	$data['content'] = $post[0]->post_content;
-	$data['slug'] = $post[0]->post_name;
-	$data['media']['thumbnail'] = get_the_post_thumbnail_url($post[0]->ID, 'thumbnail');
-	$data['media']['medium'] = get_the_post_thumbnail_url($post[0]->ID, 'medium');
-	$data['media']['large'] = get_the_post_thumbnail_url($post[0]->ID, 'large');
+// 	$data['id'] = $post[0]->ID;
+// 	$data['title'] = $post[0]->post_title;
+// 	$data['content'] = $post[0]->post_content;
+// 	$data['slug'] = $post[0]->post_name;
+// 	$data['media']['thumbnail'] = get_the_post_thumbnail_url($post[0]->ID, 'thumbnail');
+// 	$data['media']['medium'] = get_the_post_thumbnail_url($post[0]->ID, 'medium');
+// 	$data['media']['large'] = get_the_post_thumbnail_url($post[0]->ID, 'large');
 
-	return $data;
-}
+// 	return $data;
+// }
 
 function addToFav(){
 
@@ -108,7 +153,7 @@ function addToFav(){
 add_action('rest_api_init', function() {
 
 	
-	$routes = ['explore','posts','albums','artists','tracks','taxonomy'];
+	$routes = ['explore','posts','albums','artists','tracks','podcasts','videos','events','taxonomy'];
 	foreach($routes as $route){
 		register_rest_route('wl/v1', $route, [
 			'methods' => 'GET',
@@ -123,10 +168,10 @@ add_action('rest_api_init', function() {
 	) );
 
 
-	register_rest_route( 'wl/v1', 'posts/(?P<slug>[a-zA-Z0-9-]+)', array(
-		'methods' => 'GET',
-		'callback' => 'wl_post',
-	) );
+	// register_rest_route( 'wl/v1', 'posts/(?P<slug>[a-zA-Z0-9-]+)', array(
+	// 	'methods' => 'GET',
+	// 	'callback' => 'wl_post',
+	// ) );
 
 
 	register_rest_route( 'wl/v1', 'user/update', array(

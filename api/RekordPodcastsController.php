@@ -1,8 +1,7 @@
 <?php
 
 
-
-class RekordTracksController{
+class RekordPodcastsController{
 
     public function data($posts){
         $data = [];

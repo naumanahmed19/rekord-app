@@ -1,8 +1,8 @@
 <?php
 
+//TODO
 
-
-class RekordTracksController{
+class RekordEventsController{
 
     public function data($posts){
         $data = [];
@@ -28,7 +28,7 @@ class RekordTracksController{
                 }
     
                 $data[$i]['time'] = rekord_get_field('track_time', $post->ID);
-                $data[$i]['artist'] =  $this->artists($post->ID);
+                // $data[$i]['artist'] =  $this->artists($post->ID);
                 $data[$i]['favorited'] = isFavorited($post->ID);
                 
         
@@ -38,12 +38,12 @@ class RekordTracksController{
         return $data;
     }
 
-    public function artists($id){
-       $artist= new TestController();   
-        $posts = rekord_get_field('track_artists', $id);
+    // public function artists($id){
+    //    $artist= new TestController();   
+    //     $posts = rekord_get_field('track_artists', $id);
     
-        return $artist->data($posts);
-    }
+    //     return $artist->data($posts);
+    // }
 }
 
 
