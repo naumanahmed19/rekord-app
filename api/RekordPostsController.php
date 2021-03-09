@@ -54,10 +54,11 @@ class RekordPostsController{
                 $data[$i]['content'] = $comment->comment_content; 
                 $data[$i]['author']['displayName'] = $comment->comment_author;  
                 $data[$i]['author']['avatar'] = get_Avatar_url($comment->user_id);
+                $i++;
             }
          
 
-              $i++;
+         
 
         }
        
