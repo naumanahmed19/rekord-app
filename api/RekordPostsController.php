@@ -43,16 +43,20 @@ class RekordPostsController{
     }
     public function getComments($post){
         $data = [];
-
+        $i = 0;
         $comments =  get_comments(array('post_id' => $post->ID ));
         foreach($comments as $comment){
-              $data['id'] = json_decode($comment->comment_ID);  
+          
+              $data[$i]['id'] = json_decode($comment->comment_ID);  
               
-              $data['date'] = $comment->comment_date;  
-              $data['approved'] = json_decode($comment->comment_approved);  
-              $data['content'] = $comment->comment_content; 
-              $data['author']['displayName'] = $comment->comment_author;  
-              $data['author']['avatar'] = get_Avatar_url($comment->user_id);
+              $data[$i]['date'] = $comment->comment_date;  
+              $data[$i]['approved'] = json_decode($comment->comment_approved);  
+              $data[$i]['content'] = $comment->comment_content; 
+              $data[$i]['author']['displayName'] = $comment->comment_author;  
+              $data[$i]['author']['avatar'] = get_Avatar_url($comment->user_id);
+
+              $i++;
+
         }
        
         return $data;
