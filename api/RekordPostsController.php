@@ -19,9 +19,10 @@ class RekordPostsController{
                 $data[$i]['media'] = rekord_get_post_media($post->ID);
                 $data[$i]['author'] = $this->getAuthor($post);
 
-                $data[$i]['comments'] =  get_comments(array('post_id' => $post->ID ));
                 $data[$i]['commentCount'] = $post->comment_count;
                 $data[$i]['favorited'] = isFavorited($post->ID);
+                
+                $data[$i]['comments'] = $this->getComments($post);
                 
         
                 $i++;
@@ -38,6 +39,22 @@ class RekordPostsController{
         $data['firstName'] = get_the_author_meta('first_name', $post->post_author);
         $data['lastName'] = get_the_author_meta('last_name', $post->post_author);
         $data['avatar'] = get_Avatar_url($post->post_author);
+        return $data;
+    }
+    public function getComments($post){
+        $data = [];
+
+        $comments =  get_comments(array('post_id' => $post->ID ));
+        foreach($comments as $comment){
+              $data['id'] = json_decode($comment->comment_ID);  
+              
+              $data['date'] = $comment->comment_date;  
+              $data['approved'] = json_decode($comment->comment_approved);  
+              $data['content'] = $comment->comment_content; 
+              $data['author']['displayName'] = $comment->comment_author;  
+              $data['author']['avatar'] = get_Avatar_url($comment->user_id);
+        }
+       
         return $data;
     }
 
