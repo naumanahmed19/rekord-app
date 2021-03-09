@@ -50,7 +50,7 @@ class RekordPostsController{
               $data[$i]['id'] = json_decode($comment->comment_ID);  
               
               $data[$i]['date'] = $comment->comment_date;  
-              $data[$i]['approved'] = json_decode($comment->comment_approved);  
+              $data[$i]['approved'] = $comment->comment_approved == '1'? true: false;  
               $data[$i]['content'] = $comment->comment_content; 
               $data[$i]['author']['displayName'] = $comment->comment_author;  
               $data[$i]['author']['avatar'] = get_Avatar_url($comment->user_id);
